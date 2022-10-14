@@ -13,6 +13,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('login', 'registrasiC@login');
+Route::post('login', 'authC@proses')->name('proses.login');
+Route::get('register', 'registrasiC@register');
+Route::post('register', 'registrasiC@store')->name('store.register');
+Route::get('forgot', 'registrasiC@forgot');
+Route::put('forgot', 'registrasiC@resetpassword')->name('forgot.password');
+
+
+Route::get('identitas', 'identitasC@index');
