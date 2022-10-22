@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\registrasiM;
+use App\Models\pertandinganM;
 use Hash;
 use Illuminate\Http\Request;
 
@@ -32,7 +33,14 @@ class authC extends Controller
                     $request->session()->put('nama', $cek->first()->namaregistrasi);
                     $request->session()->put('email', $cek->first()->email);
 
-                    return redirect('pendaftaran')->with('toast_success', 'welcome');
+                    $idpeserta = $request->session()->get('id');
+                    $cek = pertandinganM::where('idpeserta', $idpeserta)->count();
+
+                    if($cek === 1) {
+                        return redirect('home')->with('toast_success', 'welcome');
+                    }else {
+                        return redirect('pendaftaran')->with('toast_success', 'welcome');
+                    }
                 }
             }
 
@@ -48,9 +56,10 @@ class authC extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function logout(Request $request)
     {
-        //
+        $request->session()->flush();
+        return redirect('login');
     }
 
     /**

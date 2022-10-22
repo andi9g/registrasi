@@ -11,6 +11,68 @@
   @include('layout.header')
 </head>
 <body class="sidebar-mini sidebar-closed text-sm">
+
+  <!-- Modal -->
+<div class="modal fade" id="ubahpassword" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title">Ubah Password</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+          </div>
+      <form class="form-horizontal" action="{{ route('ubah.password') }}" method="post">
+        @csrf
+        @method('PUT')
+      <div class="modal-body">
+          <div class="form-group row">
+            <label for="inputPassword1" class="col-sm-4 col-form-label">Password Baru</label>
+            <div class="col-sm-8">
+              <input type="password" class="form-control" onkeyup="cek()" name="password1" id="inputPassword1" placeholder="password baru">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="inputPassword2" class="col-sm-4 col-form-label">Ulangi Password Baru</label>
+            <div class="col-sm-8">
+              <input type="password" class="form-control" onkeyup="cek();" name="password2" id="inputPassword2" placeholder="ulangi password baru">
+            </div>
+          </div>
+      
+
+      <script>
+          function cek(){
+              var pass1 = document.getElementById('inputPassword1').value;
+              var pass2 = document.getElementById('inputPassword2').value;
+
+              if(pass1.length >=5 ){
+                      document.getElementById('inputPassword1').className="form-control";
+                  if(pass1 == pass2){
+                      document.getElementById('inputPassword1').className="form-control is-valid";
+                      document.getElementById('inputPassword2').className="form-control is-valid";
+                  }else if(pass2.length == 0){
+                      document.getElementById('inputPassword2').className="form-control";
+
+                  }else {
+                       document.getElementById('inputPassword2').className="form-control is-invalid";
+                  }
+              }else if(pass1.length==0){
+                      document.getElementById('inputPassword1').className="form-control";
+              }else {
+                  document.getElementById('inputPassword1').className="form-control is-invalid";
+
+              }
+          }
+      </script>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-danger">Ubah Password</button>
+      </div>
+    </form>
+    </div>
+  </div>
+</div>
 <!-- Site wrapper -->
 <div class="wrapper">
   <!-- Navbar -->
@@ -53,7 +115,7 @@
     <!-- Brand Logo -->
     <a href="{{ url('/home', []) }}" class="brand-link pink-gelapku">
       <h3 class="brand-image rounded-circle bg-info px-1 text-bold bg-danger border-none ml-2" style="padding-top:2px "><font color="gold">SI</font></h3>
-      <span class="brand-text text-bold text-white" style="font-size: 17px;letter-spacing: 2px">KARTA</span>
+      <span class="brand-text text-bold text-white" style="font-size: 17px;letter-spacing: 2px">KEJURWIL</span>
     </a>
 
     <!-- Sidebar -->
@@ -61,16 +123,26 @@
       <!-- Sidebar user (optional) -->
       <div class="user-panel mt-3 pb-1 mb-3 d-flex">
         <div class="image">
-          <img src="{{ url('img', 'background.jpg') }}" class="mt-3" alt="User Image">
+
+          @php
+              $id = Session::get('id'); 
+              $peserta = DB::table('peserta')->where('idpeserta', $id);
+              if($peserta->count() == 1 ){
+                $gambar = url("/img/peserta/".$peserta->first()->gambar);
+              }else{
+                $gambar = url('img', 'background.jpg');
+              }
+          @endphp
+          <img src="{{ $gambar }}" class="mt-2 rounded-lg" alt="User Image">
         </div>
-        <div class="info">
+        <div class="info mt-1">
           <a href="#" class="d-block">
-            nama
+             {{strtoupper(Session::get('nama'))}}
           </a>
           <span>
-            <a href="{{ url('profil', []) }}" class="btn btn-xs btn-outline-secondary text-bold">
-              ubah password
-            </a>
+            <button type="button" class="badge badge-danger badge-btn border-0" data-toggle="modal" data-target="#ubahpassword">
+              Ubah Password
+            </button>
           </span>
         </div>
       </div>
@@ -80,10 +152,19 @@
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column nav-flat nav-legacy" data-widget="treeview" role="menu" data-accordion="false">
             <li class="nav-item hoverku">
-              <a href="{{ url('home', []) }}" class="nav-link @yield('activekuHome')">
+              <a href="{{ url('home', []) }}" class="nav-link @yield('activekuhome')">
                 <i class="nav-icon fa fa-home"></i>
                 <p>
                   Dashboard
+                </p>
+              </a>
+            </li>
+
+            <li class="nav-item hoverku">
+              <a href="{{ url('pendaftaran', []) }}" class="nav-link @yield('activekupendaftaran')">
+                <i class="nav-icon fa fa-edit"></i>
+                <p>
+                  Pendaftaran
                 </p>
               </a>
             </li>
@@ -91,7 +172,7 @@
             <li class="nav-item hoverku">
               <hr>
               <a href="{{ url('identitas', []) }}" class="nav-link @yield('activekuIdentitas')">
-                <i class="nav-icon fas fa-edit"></i>
+                <i class="nav-icon fas fa-users"></i>
                 <p>
                   Identitas
                 </p>
@@ -146,9 +227,9 @@
 
   <footer class="main-footer text-sm footerku">
     <div class="float-right d-none d-sm-block">
-      <b>Version</b> 3.0.4
+      <b>Version</b> 2.0
     </div>
-    <strong>Copyright &copy; 2014-2019 <a href="http://adminlte.io">AdminLTE.io</a>.</strong> All rights
+    <strong>Copyright &copy; <strong>{{date('Y')}}</strong> All rights
     reserved.
   </footer>
 

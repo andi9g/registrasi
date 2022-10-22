@@ -31,6 +31,7 @@ class Karate extends Migration
             $table->enum('jk', ['l', 'p']);
             $table->String('kontingen');
             $table->String('wa');
+            $table->String('gambar');
             $table->timestamps();
         });
 
@@ -38,29 +39,65 @@ class Karate extends Migration
             $table->bigIncrements('idpertandingan');
             $table->Integer('idkelas');
             $table->Integer('idpeserta');
+            $table->enum('idbagian', ['l', 'p']);
             $table->Integer('idlomba');
-            $table->Integer('idbagian');
             $table->boolean('sah');
             $table->timestamps();
         });
 
+        Schema::create('penilaian', function (Blueprint $table) {
+            $table->bigIncrements('idpenilaian');
+            $table->Integer('idpertandingan');
+            $table->Integer('iddewanjuri');
+            $table->Float('nilai');
+            $table->boolean('ket');
+            $table->timestamps();
+        });
+
+        Schema::create('juri', function (Blueprint $table) {
+            $table->bigIncrements('idjuri');
+            $table->String('namajuri');
+            $table->String('username');
+            $table->String('password');
+            $table->timestamps();
+        });
+
+        Schema::create('dewanjuri', function (Blueprint $table) {
+            $table->bigIncrements('iddewanjuri');
+            $table->Integer('idjuri');
+            $table->Integer('idkelas');
+            $table->Integer('nojuri');
+            $table->timestamps();
+        });
+
         Schema::create('bagian', function (Blueprint $table) {
-            $table->bigIncrements('idbagian');
+            $table->enum('idbagian', ['l', 'p'])->primary();
             $table->enum('namabagian', ['putra', 'putri'])->unique();
             $table->timestamps();
         });
 
-        $bagian = ['putra', 'putri'];
-        foreach ($bagian as $bagian) {
+        $bagian = ['putra-l', 'putri-p'];
+
+        foreach ($bagian as $item) {
+            $data = explode("-", $item);
             DB::table('bagian')->insert([
-                'namabagian' => $bagian,
+                'idbagian' => $data[1],
+                'namabagian' => $data[0],
             ]);
         }
 
         Schema::create('lomba', function (Blueprint $table) {
             $table->bigIncrements('idlomba');
             $table->String('namalomba');
+            $table->String('proposal');
+            $table->dateTime('tanggalberkas');
+            $table->String('tanggallomba');
+            $table->dateTime('tanggaltutup');
+            $table->String('akses')->nullable();
+            $table->String('wa1')->nullable();
+            $table->String('wa2')->nullable();
             $table->char('tahun', 4);
+            $table->boolean('ket');
             $table->timestamps();
         });
 
