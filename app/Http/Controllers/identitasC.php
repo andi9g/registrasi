@@ -101,6 +101,7 @@ class identitasC extends Controller
                     $fileName = str_replace(" ","",$fileName).'_'.time().uniqid().'.'.$extension;
                     $kirim = $gambar->move(public_path('/img/peserta'), $fileName);
                     // $kirim = Storage::disk("local")->put("gambar/peserta/".$fileName, file_get_contents($gambar));
+                    $fileName = url('img/peserta', [$fileName]);
 
                 }
             }else {

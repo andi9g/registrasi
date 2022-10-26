@@ -86,7 +86,7 @@
                             $id = Session::get('id'); 
                             $peserta = DB::table('peserta')->where('idpeserta', $id);
                             if($peserta->count() == 1 ){
-                                $gambar = url("/img/peserta/".$peserta->first()->gambar);
+                                $gambar = $peserta->first()->gambar;
                             }else{
                                 $gambar = url('img', 'background.jpg');
                             }
