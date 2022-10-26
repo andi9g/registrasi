@@ -47,18 +47,44 @@ class Karate extends Migration
 
         Schema::create('penilaian', function (Blueprint $table) {
             $table->bigIncrements('idpenilaian');
-            $table->Integer('idpertandingan');
-            $table->Integer('iddewanjuri');
-            $table->Float('nilai');
-            $table->boolean('ket');
+            $table->Integer('idpesertatanding');
+            $table->Integer('idjuri');
+            $table->Integer('idlapangan');
+            $table->Float('nt');
+            $table->Float('na');
             $table->timestamps();
         });
 
         Schema::create('juri', function (Blueprint $table) {
             $table->bigIncrements('idjuri');
-            $table->String('namajuri');
             $table->String('username');
             $table->String('password');
+            $table->String('password2');
+            $table->Integer('idlapangan');
+            $table->Integer('posisi');
+            $table->timestamps();
+        });
+
+        Schema::create('tanding', function (Blueprint $table) {
+            $table->bigIncrements('idtanding');
+            $table->String('namatanding');
+            $table->Integer('idadmin');
+            $table->Integer('idlapangan');
+            $table->boolean('waktu');
+            $table->Integer('idkelas');
+            $table->timestamps();
+        });
+        
+        Schema::create('pesertatanding', function (Blueprint $table) {
+            $table->bigIncrements('idpesertatanding');
+            $table->Integer('idtanding');
+            $table->Integer('idpertandingan');
+            $table->timestamps();
+        });
+
+        Schema::create('lapangan', function (Blueprint $table) {
+            $table->bigIncrements('idlapangan');
+            $table->String('namalapangan');
             $table->timestamps();
         });
 
