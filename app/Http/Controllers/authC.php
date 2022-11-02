@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\registrasiM;
 use App\Models\pertandinganM;
+use App\Models\pengaturanM;
 use Hash;
 use Illuminate\Http\Request;
 
@@ -16,6 +17,7 @@ class authC extends Controller
      */
     public function proses(Request $request)
     {
+
         $request->validate([
             'email'=>'required|email',
             'password'=>'required'
@@ -28,7 +30,11 @@ class authC extends Controller
             if($cek->count() === 1){
                 $password = $request->password;
                 if(Hash::check($password, $cek->first()->password)) {
+                    $pengaturan = pengaturanM::first();
+                    $pendaftaran = (boolean) $pengaturan->pendaftaran;
+                    
                     $request->session()->put('login', true);
+                    $request->session()->put('pendaftaran', $pendaftaran);
                     $request->session()->put('id', $cek->first()->idregistrasi);
                     $request->session()->put('nama', $cek->first()->namaregistrasi);
                     $request->session()->put('email', $cek->first()->email);

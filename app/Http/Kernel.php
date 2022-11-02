@@ -58,6 +58,8 @@ class Kernel extends HttpKernel
         'auth' => \App\Http\Middleware\Authenticate::class,
         'GerbangLogin' => \App\Http\Middleware\GerbangLogin::class,
         'GerbangIdentitas' => \App\Http\Middleware\GerbangIdentitas::class,
+        'GerbangPendaftaran' => \App\Http\Middleware\GerbangPendaftaran::class,
+        'GerbangPertandingan' => \App\Http\Middleware\GerbangPertandingan::class,
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
         'cache.headers' => \Illuminate\Http\Middleware\SetCacheHeaders::class,
         'can' => \Illuminate\Auth\Middleware\Authorize::class,

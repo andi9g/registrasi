@@ -80,8 +80,8 @@
                     </div>
         
                     <div class='form-group'>
-                        <label for='forgambar' class='text-capitalize'>Foto Latar Merah</label>
-                        <small>(Seragam Baju Karate)</small>
+                        <label for='forgambar' class='text-capitalize'>Fas Photo - Latar Merah - Seragam Karate</label>
+                        <small>(Photo Shoot - Red Backgroud - karate uniform)</small>
                         @php
                             $id = Session::get('id'); 
                             $peserta = DB::table('peserta')->where('idpeserta', $id);

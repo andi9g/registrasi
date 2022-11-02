@@ -92,6 +92,18 @@ class Karate extends Migration
             $table->timestamps();
         });
 
+        Schema::create('pengaturan', function (Blueprint $table) {
+            $table->bigIncrements('idpengaturan');
+            $table->Integer('jumlahjuri');
+            $table->boolean('pendaftaran');
+            $table->timestamps();
+        });
+
+        DB::table('pengaturan')->insert([
+            'jumlahjuri' => 7,
+            'pendaftaran' => true,
+        ]);
+
         $regu = ['Pool A1', 'Pool A2', 'Pool B1', 'Pool B2', 'Babak Penyisihan 2', 'Babak Perempat Final', 'Babak Pertiga Final', 'Final', 'Final Perebutan Juara 3'];
         
         foreach ($regu as $pool) {
