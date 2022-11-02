@@ -52,6 +52,7 @@ class Karate extends Migration
             $table->Integer('idlapangan');
             $table->Float('nt');
             $table->Float('na');
+            $table->Integer('waktu');
             $table->timestamps();
         });
 
@@ -60,21 +61,24 @@ class Karate extends Migration
             $table->String('username');
             $table->String('password');
             $table->String('password2');
-            $table->Integer('idlapangan');
+            $table->Integer('idadmin');
             $table->Integer('posisi');
             $table->timestamps();
         });
 
         Schema::create('tanding', function (Blueprint $table) {
             $table->bigIncrements('idtanding');
-            $table->String('namatanding');
-            $table->Integer('idadmin');
-            $table->Integer('idlapangan');
+            $table->String('idregu');
+            $table->Integer('idadmin')->nullable();
+            $table->Integer('idlapangan')->nullable();
             $table->boolean('waktu');
             $table->Integer('idkelas');
+            $table->Integer('idbagian');
+            $table->Integer('idlomba');
+            $table->String('ket')->nullable();
             $table->timestamps();
         });
-        
+
         Schema::create('pesertatanding', function (Blueprint $table) {
             $table->bigIncrements('idpesertatanding');
             $table->Integer('idtanding');
@@ -82,11 +86,33 @@ class Karate extends Migration
             $table->timestamps();
         });
 
+        Schema::create('regu', function (Blueprint $table) {
+            $table->bigIncrements('idregu');
+            $table->String('namaregu');
+            $table->timestamps();
+        });
+
+        $regu = ['Pool A1', 'Pool A2', 'Pool B1', 'Pool B2', 'Babak Penyisihan 2', 'Babak Perempat Final', 'Babak Pertiga Final', 'Final', 'Final Perebutan Juara 3'];
+        
+        foreach ($regu as $pool) {
+            DB::table('regu')->insert([
+                'namaregu' => $pool,
+            ]);
+        }
+        
+
         Schema::create('lapangan', function (Blueprint $table) {
             $table->bigIncrements('idlapangan');
             $table->String('namalapangan');
             $table->timestamps();
         });
+        $lapangan = ['Lapangan 1', 'Lapangan 2', 'Lapangan 3'];
+        
+        foreach ($lapangan as $lap) {
+            DB::table('lapangan')->insert([
+                'namalapangan' => $lap,
+            ]);
+        }
 
         Schema::create('dewanjuri', function (Blueprint $table) {
             $table->bigIncrements('iddewanjuri');
