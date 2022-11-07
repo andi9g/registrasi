@@ -68,7 +68,6 @@ class Karate extends Migration
 
         Schema::create('tanding', function (Blueprint $table) {
             $table->bigIncrements('idtanding');
-            $table->String('idregu');
             $table->Integer('idadmin')->nullable();
             $table->Integer('idlapangan')->nullable();
             $table->boolean('waktu');
@@ -83,6 +82,7 @@ class Karate extends Migration
             $table->bigIncrements('idpesertatanding');
             $table->Integer('idtanding');
             $table->Integer('idpertandingan');
+            $table->Integer('idregu');
             $table->Integer('urutan')->nullable();
             $table->timestamps();
         });
