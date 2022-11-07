@@ -83,6 +83,7 @@ class Karate extends Migration
             $table->bigIncrements('idpesertatanding');
             $table->Integer('idtanding');
             $table->Integer('idpertandingan');
+            $table->Integer('urutan')->nullable();
             $table->timestamps();
         });
 
