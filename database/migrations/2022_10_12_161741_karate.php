@@ -105,7 +105,7 @@ class Karate extends Migration
             'pendaftaran' => true,
         ]);
 
-        $regu = ['Pool A1', 'Pool A2', 'Pool B1', 'Pool B2', 'Babak Penyisihan 2', 'Babak Perempat Final', 'Babak Pertiga Final', 'Final', 'Final Perebutan Juara 3'];
+        $regu = ['Pool A','Pool B','Pool A1', 'Pool A2', 'Pool B1', 'Pool B2', 'Babak Penyisihan 2', 'Babak Perempat Final', 'Babak Pertiga Final', 'Final', 'Final Perebutan Juara 3'];
         
         foreach ($regu as $pool) {
             DB::table('regu')->insert([
