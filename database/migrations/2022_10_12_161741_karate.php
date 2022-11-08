@@ -52,17 +52,7 @@ class Karate extends Migration
             $table->Integer('idlapangan');
             $table->Float('nt');
             $table->Float('na');
-            $table->Integer('waktu');
-            $table->timestamps();
-        });
-
-        Schema::create('juri', function (Blueprint $table) {
-            $table->bigIncrements('idjuri');
-            $table->String('username');
-            $table->String('password');
-            $table->String('password2');
-            $table->Integer('idadmin');
-            $table->Integer('posisi');
+            $table->double('waktu');
             $table->timestamps();
         });
 
@@ -127,13 +117,34 @@ class Karate extends Migration
             ]);
         }
 
-        Schema::create('dewanjuri', function (Blueprint $table) {
-            $table->bigIncrements('iddewanjuri');
-            $table->Integer('idjuri');
-            $table->Integer('idkelas');
-            $table->Integer('nojuri');
+        Schema::create('superadmin', function (Blueprint $table) {
+            $table->bigIncrements('idsuperadmin');
+            $table->String('username');
+            $table->String('password');
+            $table->String('namasuperadmin');
             $table->timestamps();
         });
+
+        Schema::create('admin', function (Blueprint $table) {
+            $table->bigIncrements('idadmin');
+            $table->String('username')->unique();
+            $table->String('password');
+            $table->String('password2');
+            $table->Integer('idlapangan');
+            $table->timestamps();
+        });
+
+        Schema::create('juri', function (Blueprint $table) {
+            $table->bigIncrements('idjuri');
+            $table->String('username');
+            $table->String('password');
+            $table->String('password2');
+            $table->Integer('idadmin');
+            $table->Integer('posisi');
+            $table->timestamps();
+        });
+
+        
 
         Schema::create('bagian', function (Blueprint $table) {
             $table->enum('idbagian', ['l', 'p'])->primary();
