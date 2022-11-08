@@ -144,8 +144,6 @@ class Karate extends Migration
             $table->timestamps();
         });
 
-        
-
         Schema::create('bagian', function (Blueprint $table) {
             $table->enum('idbagian', ['l', 'p'])->primary();
             $table->enum('namabagian', ['putra', 'putri'])->unique();
