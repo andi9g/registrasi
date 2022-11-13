@@ -63,7 +63,9 @@ class Karate extends Migration
             $table->boolean('waktu');
             $table->Integer('idkelas');
             $table->enum('idbagian', ['l', 'p']);
+            $table->Integer('idregu');
             $table->Integer('idlomba');
+            $table->Integer('index');
             $table->String('ket')->nullable();
             $table->timestamps();
         });
@@ -72,7 +74,6 @@ class Karate extends Migration
             $table->bigIncrements('idpesertatanding');
             $table->Integer('idtanding');
             $table->Integer('idpertandingan');
-            $table->Integer('idregu');
             $table->Integer('urutan')->nullable();
             $table->timestamps();
         });
