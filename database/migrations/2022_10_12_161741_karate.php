@@ -81,6 +81,7 @@ class Karate extends Migration
         Schema::create('regu', function (Blueprint $table) {
             $table->bigIncrements('idregu');
             $table->String('namaregu');
+            $table->String('ket')->nullable();
             $table->timestamps();
         });
 
@@ -96,11 +97,13 @@ class Karate extends Migration
             'pendaftaran' => true,
         ]);
 
-        $regu = ['Pool A','Pool B','Pool A1', 'Pool A2', 'Pool B1', 'Pool B2', 'Babak Penyisihan 2', 'Babak Perempat Final', 'Babak Pertiga Final', 'Final', 'Final Perebutan Juara 3'];
+        $regu = ['Pool A_','Pool B_','Pool A1_20', 'Pool A2_20', 'Pool B1_30', 'Pool B2_30', 'Babak Penyisihan 2_8', 'Babak Perempat Final_4', 'Babak Pertiga Final_3', 'Final_1', 'Final Perebutan Juara 3_13'];
         
         foreach ($regu as $pool) {
+            $ex = explode('_',$pool);
             DB::table('regu')->insert([
-                'namaregu' => $pool,
+                'namaregu' => $ex[0],
+                'ket' => empty($ex[1])?"":$ex[1],
             ]);
         }
         
