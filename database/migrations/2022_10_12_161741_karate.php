@@ -67,6 +67,7 @@ class Karate extends Migration
             $table->Integer('idlomba');
             $table->Integer('index');
             $table->String('ket')->nullable();
+            $table->String('ket2')->nullable();
             $table->timestamps();
         });
 
