@@ -98,7 +98,7 @@ class Karate extends Migration
             'pendaftaran' => true,
         ]);
 
-        $regu = ['Pool A_11','Pool B_12','Pool A1_20', 'Pool A2_20', 'Pool B1_30', 'Pool B2_30', 'Babak Penyisihan 2_8', 'Babak Perempat Final_4', 'Babak Pertiga Final_3', 'Final_1', 'Final Perebutan Juara 3_13'];
+        $regu = ['Pool A_11','Pool B_12','Pool A1_20', 'Pool A2_20', 'Pool B1_30', 'Pool B2_30', 'Babak Penyisihan 2_8', 'Babak Perempat Final_4', 'Babak Pertiga Final_3', 'Final_1', 'Final Perebutan Juara 3_13', 'finish_100'];
         
         foreach ($regu as $pool) {
             $ex = explode('_',$pool);
