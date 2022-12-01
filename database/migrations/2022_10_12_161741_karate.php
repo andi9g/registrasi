@@ -76,6 +76,7 @@ class Karate extends Migration
             $table->Integer('idtanding');
             $table->Integer('idpertandingan');
             $table->Integer('urutan')->nullable();
+            $table->boolean('selesai')->default(0);
             $table->timestamps();
         });
 
