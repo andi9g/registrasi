@@ -68,6 +68,7 @@ class Karate extends Migration
             $table->Integer('index');
             $table->String('ket')->nullable();
             $table->String('ket2')->nullable();
+            $table->boolean('selesai')->default(0);
             $table->timestamps();
         });
 
@@ -139,6 +140,18 @@ class Karate extends Migration
             $table->Integer('idlapangan');
             $table->timestamps();
         });
+
+        Schema::create('superadmin', function (Blueprint $table) {
+            $table->bigIncrements('idsuperadmin');
+            $table->String('username')->unique();
+            $table->String('password');
+            $table->timestamps();
+        });
+
+        DB::table('superadmin')->insert([
+            'username' => 'superadmin',
+            'password' => Hash::make('superadmin'.date('Y')),
+        ]);
 
         Schema::create('juri', function (Blueprint $table) {
             $table->bigIncrements('idjuri');
