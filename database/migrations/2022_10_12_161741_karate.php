@@ -141,16 +141,10 @@ class Karate extends Migration
             $table->timestamps();
         });
 
-        Schema::create('superadmin', function (Blueprint $table) {
-            $table->bigIncrements('idsuperadmin');
-            $table->String('username')->unique();
-            $table->String('password');
-            $table->timestamps();
-        });
-
         DB::table('superadmin')->insert([
             'username' => 'superadmin',
             'password' => Hash::make('superadmin'.date('Y')),
+            'namasuperadmin' => 'superadmin',
         ]);
 
         Schema::create('juri', function (Blueprint $table) {
